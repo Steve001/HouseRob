@@ -130,6 +130,17 @@ public class Customer {
 		this.cus_date_dingcun = cus_date_dingcun;
 	}
 	
+	
+	public Customer() {
+		super();
+	}
+	public Customer(String cus_idnum, String cus_password) {	//currentCustomer调取的函数
+		super();
+		this.cus_idnum = cus_idnum;
+		this.cus_password = cus_password;
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "Customer [cus_id=" + cus_id +", cus_order=" + cus_order +", cus_order_date=" + cus_order_date +", cus_name=" + cus_name +", cus_phone=" + cus_phone + " , cus_idnum=" + cus_idnum +", cus_password=" + cus_password + ", cus_guwen=" + cus_guwen +", cus_area1=" + cus_area1 + ", cus_area2=" + cus_area2 + ", cus_area3=" + cus_area3 + ", cus_final_area=" + cus_final_area + ", cus_status=" + cus_status + ", cus_date_dingcun=" + cus_date_dingcun + "]"; 

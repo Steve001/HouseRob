@@ -175,7 +175,7 @@
         <div class="jianbian"></div>
 
         <div class="toolbar flex">
-			<a class="cell index  active " href="home_copy.jsp">
+			<a class="cell index  active " href="home.jsp">
                 <span class="item">
                     <i></i><span>首页</span>
                 </span>

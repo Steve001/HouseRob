@@ -90,7 +90,7 @@ public class HouseDao {
 	}
 	
 	//购买后修改房源信息字段
-	public int houseUpdate(Connection con, House house, Customer customer) throws SQLException {		//函数类型为int
+	public static int houseUpdate(Connection con, House house, Customer customer) throws SQLException {		//函数类型为int
 		String sql="update house set house_status=1,cus_id=?,cus_order=?,cus_order_date=?,cus_name=?,cus_phone=?,cus_idnum=?,cus_password=?,cus_guwen=?,cus_area1=?,cus_area2=?,cus_area3=?,cus_final_area=?,cus_status=1,cus_date_dingcun=? where house_id = ?";				//根据house_id改变house_status
 		PreparedStatement pstm=con.prepareStatement(sql);
 		pstm.setString(1, house.gethouse_status());
@@ -122,17 +122,23 @@ public class HouseDao {
 		
 		PreparedStatement pstmt = con.prepareStatement(sql);
 		//pstmt.setString(1, customer.getCusName());
-		pstmt.setString(1, house.gethouse_status());
-		ResultSet executeQuery = pstmt.executeQuery();
-		while (executeQuery.next()) {
-			if (executeQuery.getInt(1) > 0) {			//判断返回结果是否为1，若1则已出售
+		pstmt.setInt(1, house.gethouse_id());
+		//ResultSet executeQuery = pstmt.executeQuery();
+		//while (executeQuery.next()) {
+		ResultSet rs = pstmt.executeQuery();	
+		boolean fla=rs.next();
+		System.out.println(fla);
+		System.out.println(rs.toString());
+		System.out.println(rs.getString("house_status"));
+		
+
+		if (Integer.parseInt(rs.getString("house_status")) == 1) {			//判断返回结果是否为1，若1则已出售
 				return 1;
 			} else {
 				return 0;
 			}
-		}
-		return 0;
 	}
+	
 	
 	/* 展示1号楼指定楼层房源信息 */
 	public static List<House> houseFloorShow1(Connection con, String house_floor) throws SQLException {

@@ -16,7 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.hr.dao.HouseDao;
+import com.hr.dao.LoginDao;
 import com.hr.model.House;
+import com.hr.model.Login;
 import com.hr.model.houseFloor;
 import com.hr.model.houseFloor;
 import com.hr.dao.CusDao;
@@ -74,6 +76,9 @@ public class houseSelectServlet extends HttpServlet {
 			try {
 				houseSave(request, response,house_id);
 			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -163,7 +168,7 @@ public class houseSelectServlet extends HttpServlet {
 	 
 	 //改变具体房屋状态字段
 	 private void houseSave(HttpServletRequest request,
-			 	HttpServletResponse response, String house_id)throws ServletException, IOException, SQLException {
+			 	HttpServletResponse response, String house_id)throws Exception {
 				
 			//String house_id = request.getParameter("house_id");
 			
@@ -182,6 +187,8 @@ public class houseSelectServlet extends HttpServlet {
 		 	
 			//String cus_id = request.getParameter("cus_id");			//暂设置为Int类型
 			String cus_order = request.getParameter("cus_order");
+			System.out.println("cus_oder");
+			
 			String cus_order_date = request.getParameter("cus_order_date");
 			String cus_name = request.getParameter("cus_name");
 			String cus_phone = request.getParameter("cus_phone");
@@ -214,9 +221,10 @@ public class houseSelectServlet extends HttpServlet {
 //			if(StringUtil.isNotEmpty(request.getParameter("house_id"))) 
 
 			Connection con = null;
+			con = dbUtil.getCon();
 			int status = HouseDao.getStatus(con, house1);
 			try {
-				con = dbUtil.getCon();
+				//con = dbUtil.getCon();
 //				int saveNum = 0;
 //				System.err.println(request.getParameter("cusId"));
 //				if(StringUtil.isNotEmpty(request.getParameter("cusId"))){
@@ -225,11 +233,23 @@ public class houseSelectServlet extends HttpServlet {
 				System.out.println(house1);
 				System.out.println(status);
 //				System.out.println(saveNum);
+//				Login currentCustomer = null;
+//				Login customer = new Login(cus_idnum, cus_password);
+//				currentCustomer = CusDao.Login(con, customer);
+//				System.out.println("currentCustomer");
+				
 				if(status == 1) {
+					//在总表中获取status字段，改房源已被抢购
 //					request.getRequestDispatcher("cusList?action=list").forward(request, response);
 					System.out.println("-------------------------");
+					request.setAttribute("error", "该房源已被抢购");
 				} else {
+					//该房源未被抢购
 					System.out.println("+++++++++++++++++++++++++");
+					//HouseDao.houseUpdate(con, house1, currentCustomer);
+//					request.setAttribute("house1", house1);
+//					request.getRequestDispatcher("house_result.jsp").forward(request, response);
+					
 //					request.setAttribute("house1", house1);
 //					request.setAttribute("error", "保存失败");
 //					request.setAttribute("mainPage", "admin/cusSave.jsp");
