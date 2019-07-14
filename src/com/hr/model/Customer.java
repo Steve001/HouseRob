@@ -131,15 +131,6 @@ public class Customer {
 	}
 	
 	
-	public Customer() {
-		super();
-	}
-	public Customer(String cus_idnum, String cus_password) {	//currentCustomer调取的函数
-		super();
-		this.cus_idnum = cus_idnum;
-		this.cus_password = cus_password;
-	}
-	
 	
 	@Override
 	public String toString() {

@@ -52,7 +52,7 @@ public class customerLoginServlet extends HttpServlet {
 				} else {
 					deleteCookie(cus_idnum, request, response);		//删除cookie登录信息
 				}
-				session.setAttribute("currentCustomer", currentLogin);
+				session.setAttribute("currentLogin", currentLogin);
 				request.setAttribute("mainPage", "home.jsp");			//设置主页？？
 				request.getRequestDispatcher("home.jsp").forward(request, response);	//跳转主页面？？
 			}
