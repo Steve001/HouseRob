@@ -2,6 +2,8 @@ package com.hr.web;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,8 +46,9 @@ public class houseSelectServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String s_houseManageText = request.getParameter("s_houseManageText");	//获取houseManageText链接
 		String action = request.getParameter("action");		//获取前端action字段
-		String house_floor = request.getParameter("house_floor");
+		String house_floor = request.getParameter("house_floor");	//从前端jsp传过来的字段在此定义
 		String cus_id = request.getParameter("cus_id");
+		String house_id = request.getParameter("house_id");
 		House house = new House();
 //		houseFloor house_floor = new houseFloor(house_floor);
 		
@@ -53,16 +56,27 @@ public class houseSelectServlet extends HttpServlet {
 		if("preSave".equals(action)) {
 			housePreSave(request, response);
 			return;
-		} else if("update".equals(action)){
-			houseSave(request, response);
-			return;
-		} else if("floorList1".equals(action)) {
+		}
+//		else if("update".equals(action)){
+//			houseSave(request, response);
+//			return;
+//		} 
+		else if("floorList1".equals(action)) {
 			
 			houseFloorList1(request, response,house_floor);
 			return;
 		} else if("floorList2".equals(action)) {
 			
 			houseFloorList2(request, response,house_floor);
+			return;
+		} else if("Save".equals(action)) {
+			
+			try {
+				houseSave(request, response,house_id);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return;
 		} 
 ////			session.removeAttribute("s_houseManagerText");
@@ -92,13 +106,40 @@ public class houseSelectServlet extends HttpServlet {
 	
 	 
 	//预先获取房源具体信息-----确定选房信息页面信息显示
-	 private void housePreSave(HttpServletRequest request,
+	 private synchronized void housePreSave(HttpServletRequest request,			//添加synchronized设置为悲观锁
 			 HttpServletResponse response)throws ServletException, IOException {
 		String house_id = request.getParameter("house_id");
 		if(StringUtil.isNotEmpty(house_id)) {
 			Connection con = null;
+			
+//			House house1 = new House();									//获取request中的house字段信息，可考虑是否获取到customer字段信息
+//			//String house_id = request.getParameter("house_id");
+//			String house_floor = request.getParameter("house_floor");
+//			String house_num = request.getParameter("house_num");
+//			String house_area = request.getParameter("house_area");
+//			String house_price_single = request.getParameter("house_price_single");
+//			String house_price_total = request.getParameter("house_price_total");
+//			String house_status = request.getParameter("house_status");
+//			
+//			
+//			
+//			house1.sethouse_id(Integer.parseInt(house_id));
+//			house1.sethouse_floor(house_floor);
+//			house1.sethouse_num(Integer.parseInt(house_num));
+//			house1.sethouse_area(house_area);
+//			house1.sethouse_price_single(house_price_single);
+//			house1.sethouse_price_total(house_price_total);
+//			house1.sethouse_status(house_status); 				//是否需要根据house_status字段设置int或者string 
+			
+			
+			
+			
 			try {
 				con = dbUtil.getCon();
+				//int isSold = HouseDao.isSold(con, house);
+				
+				
+				
 				/*
 				 * DormManager dormManager = dormManagerDao.dormManagerShow(con, dormManagerId);
 				 */
@@ -122,13 +163,26 @@ public class houseSelectServlet extends HttpServlet {
 	 
 	 //改变具体房屋状态字段
 	 private void houseSave(HttpServletRequest request,
-			 	HttpServletResponse response)throws ServletException, IOException {
+			 	HttpServletResponse response, String house_id)throws ServletException, IOException, SQLException {
 				
-			String house_id = request.getParameter("house_id");
-			String house_status = request.getParameter("house_status");	//设置房源状态字段
+			//String house_id = request.getParameter("house_id");
+			
+		 
+		 	String house_floor = request.getParameter("house_floor");
+		 	String house_status = request.getParameter("house_status");	//设置房源状态字段
+			String house_num = request.getParameter("house_num");
+			String house_area = request.getParameter("house_area");
+			String house_price_single = request.getParameter("house_price_single");
+			String house_price_total = request.getParameter("house_price_total");
+		 	
+		 	System.out.println(request.getParameter("house_status"));
+		 	System.out.println(request.getParameter("house_num"));
+		 	System.out.println(request.getParameter("house_id"));
+		 	System.out.println(request.getParameter("house_price_single"));
+		 	
 			//String cus_id = request.getParameter("cus_id");			//暂设置为Int类型
 			String cus_order = request.getParameter("cus_order");
-			String cus_order_date = request.getParameter("cus_order");
+			String cus_order_date = request.getParameter("cus_order_date");
 			String cus_name = request.getParameter("cus_name");
 			String cus_phone = request.getParameter("cus_phone");
 			String cus_idnum = request.getParameter("cus_idnum");
@@ -141,33 +195,45 @@ public class houseSelectServlet extends HttpServlet {
 			
 			House house1=new House();
 			house1.sethouse_id(Integer.parseInt(house_id));
+			house1.sethouse_floor(house_floor);
 			house1.sethouse_status(house_status);
-			//house1.setcus_id(Integer.parseInt(cus_id));
+			house1.sethouse_area(house_area);
+			house1.sethouse_num(Integer.parseInt(house_num));
+			house1.sethouse_price_single(house_price_single);
+			house1.sethouse_price_total(house_price_total);
 			
+			//house1.sethouse_status(house_status);
+			//house1.setcus_id(Integer.parseInt(cus_id));
+			System.out.println(request.getParameter("house_id"));
 			//是应将所有字段放到house1还是再写一个customer拼接返回
 			
 			
-			if(StringUtil.isNotEmpty(request.getParameter("house_id"))) {
+			Customer customer1 = new Customer();
+			
+			
+//			if(StringUtil.isNotEmpty(request.getParameter("house_id"))) 
 
 			Connection con = null;
+			int status = HouseDao.getStatus(con, house1);
 			try {
 				con = dbUtil.getCon();
-			
-				int saveNum = 0;
-				System.err.println(request.getParameter("house_id"));
-				if(StringUtil.isNotEmpty(request.getParameter("house_id"))){
-					saveNum = houseDao.houseUpdate(con, house1);
-				} 
+//				int saveNum = 0;
+//				System.err.println(request.getParameter("cusId"));
+//				if(StringUtil.isNotEmpty(request.getParameter("cusId"))){
+//					saveNum = cusDao.cusUpdate(con, customer1);
+//				} 
 				System.out.println(house1);
-				System.out.println(saveNum);
-				if(saveNum > 0) {
-					request.getRequestDispatcher("houseList?action=list").forward(request, response);	//根据cusList获取信息
+				System.out.println(status);
+//				System.out.println(saveNum);
+				if(status == 1) {
+//					request.getRequestDispatcher("cusList?action=list").forward(request, response);
+					System.out.println("-------------------------");
 				} else {
-					request.setAttribute("house1", house1);
-					request.setAttribute("success", "抢房成功!");
-					request.setAttribute("error", "抢房失败，当前房源已被抢购");
-					request.setAttribute("mainPage", "blank.jsp");			//设置cusSave为mainPage,应该为抢房成功页面,暂设为blank.jsp
-					request.getRequestDispatcher("houseManager.jsp").forward(request, response);		//暂时设置为home.jsp
+					System.out.println("+++++++++++++++++++++++++");
+//					request.setAttribute("house1", house1);
+//					request.setAttribute("error", "保存失败");
+//					request.setAttribute("mainPage", "admin/cusSave.jsp");
+//					request.getRequestDispatcher("mainAdmin.jsp").forward(request, response);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -177,7 +243,7 @@ public class houseSelectServlet extends HttpServlet {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}}
+			}
 		}
 	 
 	 

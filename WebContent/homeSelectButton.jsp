@@ -92,13 +92,32 @@
         <input type="checkbox"> 选项 2
     </label> -->
     
-
-
+	<div id="timer"></div>
+	<div id="warring"></div>
+	
 
 <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </body>
+
+<script type="text/javascript">
+	var maxtime = 2 * 60; 		//设置倒计时总时间
+		function CountDown(){
+			if (maxtime >= 0){
+				minutes = Math.floor(maxtime / 60);
+				seconds = Math.floor(maxtime % 60);
+				msg = "距离本组选房结束还有" + minutes + "分" + seconds + "秒" ;
+				document.all["timer"].innerHTML = msg;
+				if (maxtime == 1 * 60 )alert("仅剩一分钟");
+				--maxtime;
+			}else{
+				clearInterval(timer);
+				alert("时间到，结束");
+			}
+	}
+	timer = setInterval("CountDown()", 1000);
+</script>
 </html>
 
 

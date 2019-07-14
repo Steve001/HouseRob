@@ -51,7 +51,7 @@
 		<div class="data_list_title">
 			提交确认单
 		</div>
-		<form action="houseSelect?action=preSave&house_id=${house.house_id }" method="post">		<!-- 将数据传给houseSelectServlet里面的preSave方法，并提交cus_id过去 -->
+		<%-- <form action="houseSelect?action=Save&house_id=${house.house_id }" method="post">		<!-- 将数据传给houseSelectServlet里面的preSave方法，并提交cus_id过去 --> --%>
 			<div class="data_form" >
 				<%-- <input type="hidden" id="cusId" name="cusId" value="${customer.cusId  }"/> --%>
 					<table align="center">
@@ -79,7 +79,9 @@
 							<tr>
 								<td><font color="red">*</font>房屋总价：</td>
 								<td>${house.house_price_total}</td>
+								
 							</tr>
+							
 						
 						
 						
@@ -88,7 +90,8 @@
 					
 					
 					<div align="center">
-						<input type="submit" class="btn btn-primary" value="抢房！！！"/>
+						<!-- <input type="submit" class="btn btn-primary" value="抢房！！！"/> -->
+						<button class="btn btn-mini btn-info" type="button" onclick="javascript:window.location='houseSelect?action=Save&house_id=${house.house_id }&house_floor=${house.house_floor}&house_num=${house.house_num}&house_area=${house.house_area }&house_price_single=${house.house_price_single }&house_price_total=${house.house_price_total }&house_status=${house.house_status }'">抢房</button>
 						<!-- &nbsp;<button class="btn btn-primary" type="button" onclick="javascript:history.back()">返回</button> -->	<!-- 返回按钮 -->
 					</div>
 					
@@ -97,5 +100,5 @@
 						<font id="error" color="red">${error }</font>
 					</div>
 			</div>
-		</form>
+		<!-- </form> -->
 </div>

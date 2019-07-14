@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLOutput;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -88,14 +89,49 @@ public class HouseDao {
 		return house1;
 	}
 	
-	public int houseUpdate(Connection con, House house) throws SQLException {		//函数类型为int
-		String sql="update house set house_id=?  where house_status=?";				//根据house_id改变house_status
+	//购买后修改房源信息字段
+	public int houseUpdate(Connection con, House house, Customer customer) throws SQLException {		//函数类型为int
+		String sql="update house set house_status=1,cus_id=?,cus_order=?,cus_order_date=?,cus_name=?,cus_phone=?,cus_idnum=?,cus_password=?,cus_guwen=?,cus_area1=?,cus_area2=?,cus_area3=?,cus_final_area=?,cus_status=1,cus_date_dingcun=? where house_id = ?";				//根据house_id改变house_status
 		PreparedStatement pstm=con.prepareStatement(sql);
 		pstm.setString(1, house.gethouse_status());
-		pstm.setInt(2, house.gethouse_id());
+		pstm.setInt(2, customer.getcus_Id());
+		pstm.setInt(3, customer.getcus_order());
+		pstm.setString(4, customer.getcus_order_date());
+		pstm.setString(5, customer.getcus_name());
+		pstm.setString(6, customer.getcus_phone());
+		pstm.setString(7, customer.getcus_idnum());
+		pstm.setString(8, customer.getcus_password());
+		pstm.setString(9, customer.getcus_guwen());
+		pstm.setString(10, customer.getcus_area1());
+		pstm.setString(11, customer.getcus_area2());
+		pstm.setString(12, customer.getcus_area3());
+		pstm.setString(13, customer.getcus_final_area());
+		pstm.setString(14, customer.getcus_date_dingcun());
+		
+		pstm.setInt(15, house.gethouse_id());
+		
 		int a =pstm.executeUpdate();
 		System.out.println(a);
 		return a;
+	}
+	
+//	获取当前房源的状态字段,变向判断是否已经被购买，如果没有被购买则跳转update方法写回数据库
+	public static int getStatus(Connection con, House house) throws SQLException {		//函数类型为int
+		String sql="select house_status from house where house_id = ?";				//根据前端传过来的house_status来判断当前表中status是否为空
+		System.out.println(house);
+		
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		//pstmt.setString(1, customer.getCusName());
+		pstmt.setString(1, house.gethouse_status());
+		ResultSet executeQuery = pstmt.executeQuery();
+		while (executeQuery.next()) {
+			if (executeQuery.getInt(1) > 0) {			//判断返回结果是否为1，若1则已出售
+				return 1;
+			} else {
+				return 0;
+			}
+		}
+		return 0;
 	}
 	
 	/* 展示1号楼指定楼层房源信息 */
@@ -147,12 +183,12 @@ public class HouseDao {
 	}
 	
 	
-	//判断该房源是否已被购买
-	public int isSold(Connection connection, House house) throws SQLException {	//根据手机号判断客户是否被推介
-		String sql = "select count(*) from customer where cus_phone = ?";
-		//String sql = "select count(*) from customer where cus_name = ? and cus_phone = ?";
+	//判断该房源是否已被购买,悲观锁。。。
+	public synchronized int isSold(Connection connection, House house) throws SQLException {	//根据手机号判断客户是否被推介
+		String sql = "select count(*) from customer where cus_phone = ?";		//调取当前房源信息表中house_status字段
+		
 		PreparedStatement pstmt = connection.prepareStatement(sql);
-		//pstmt.setString(1, customer.getCusName());
+		
 		pstmt.setString(1, house.gethouse_status());
 		ResultSet executeQuery = pstmt.executeQuery();
 		while (executeQuery.next()) {
@@ -165,5 +201,18 @@ public class HouseDao {
 		return 0;
 	}
 	
+	
+//	public synchronized String qiangfang(String cus_id, String house_id) {
+//		  //1.判断房源id是否已被他人抢购。
+//		  
+//		·   
+//		
+//		  if (已抢购) {
+//		   返回提示信息，该房源已被他人抢购。
+//		  }else {
+//		   将该用户信息与该房源绑定，并更新房源状态为已抢够
+//		   返回提示信息，抢房成功。
+//		  }
+//		 }
 	
 }
