@@ -49,36 +49,16 @@
 
 <div class="data_list">
 		<div class="data_list_title">
-			提交确认单
 		</div>
 		<%-- <form action="houseSelect?action=Save&house_id=${house.house_id }" method="post">		<!-- 将数据传给houseSelectServlet里面的preSave方法，并提交cus_id过去 --> --%>
 			<div class="data_form" >
 				<%-- <input type="hidden" id="cusId" name="cusId" value="${customer.cusId  }"/> --%>
 					<table align="center">
 						
+							
 							<tr>
-								<td><font color="red">*</font>房屋编号：</td>
-								<td>${house.house_id}</td>
-							</tr>
-							<tr>
-								<td><font color="red">*</font>房屋楼层：</td>
-								<td>${house.house_floor}</td>
-							</tr>
-							<tr>
-								<td><font color="red">*</font>房屋号码：</td>
-								<td>${house.house_num}</td>
-							</tr>
-							<tr>
-								<td><font color="red">*</font>房屋面积：</td>
-								<td>${house.house_area}</td>
-							</tr>
-							<tr>
-								<td><font color="red">*</font>房屋单价：</td>
-								<td>${house.house_price_single}</td>
-							</tr>
-							<tr>
-								<td><font color="red">*</font>房屋总价：</td>
-								<td>${house.house_price_total}</td>
+								<td><font color="red">*</font>选房失败，可能您已经选过房或者当前房源已被选择</td>
+								<%-- <td>${house.house_price_total}</td> --%>
 								
 							</tr>
 							
@@ -91,8 +71,8 @@
 					
 					<div align="center">
 						<!-- <input type="submit" class="btn btn-primary" value="抢房！！！"/> -->
-						<button class="btn btn-mini btn-info" type="button" id="confirm" onclick="javascript:window.location='houseSelect?action=Save&house_id=${house.house_id }&house_floor=${house.house_floor}&house_num=${house.house_num}&house_area=${house.house_area }&house_price_single=${house.house_price_single }&house_price_total=${house.house_price_total }&house_status=${house.house_status }&cus_id=${sessionScope.currentLogin.cus_id}'">抢房</button>
-						
+						<button class="btn btn-mini btn-info" type="button" id="confirm" onclick="javascript:window.location='homeSelectButton.jsp'">重新选房</button>
+						<button class="btn btn-mini btn-info" type="button" id="confirm" onclick="javascript:window.location='my.jsp'">查看已选房源信息</button>
 						<!-- &nbsp;<button class="btn btn-primary" type="button" onclick="javascript:history.back()">返回</button> -->	<!-- 返回按钮 -->
 					</div>
 					

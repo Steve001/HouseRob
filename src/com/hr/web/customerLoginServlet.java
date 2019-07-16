@@ -50,7 +50,7 @@ public class customerLoginServlet extends HttpServlet {
 				if("remember-me".equals(remember)) {
 					rememberMe(cus_idnum, cus_password,response);
 				} else {
-					deleteCookie(cus_idnum, request, response);		//删除cookie登录信息
+					//deleteCookie(cus_idnum, request, response);		//删除cookie登录信息
 				}
 				session.setAttribute("currentLogin", currentLogin);
 				request.setAttribute("mainPage", "home.jsp");			//设置主页？？

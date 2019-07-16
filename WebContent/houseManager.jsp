@@ -39,7 +39,6 @@
 
 <div class="data_list">
 		<div class="data_list_title">
-		Test
 		</div>
 		<div>
 			<table class="table table-hover table-striped table-bordered">

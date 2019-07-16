@@ -5,6 +5,7 @@ public class House {
 	private int house_id;
 	private String house_floor;
 	private int house_num;
+	private String house_lounum;
 	private String house_area;
 	private String house_price_single;
 	private String house_price_total;
@@ -34,6 +35,14 @@ public class House {
 	
 	public void sethouse_num(int house_num) {
 		this.house_num = house_num;
+	}
+	
+	public String gethouse_lounum() {
+		return house_lounum;
+	}
+	
+	public void sethouse_lounum(String house_lounum) {
+		this.house_lounum = house_lounum;
 	}
 	
 	public String gethouse_area() {
@@ -70,7 +79,7 @@ public class House {
 	
 	@Override
 	public String toString() {
-		return "House [house_id=" + house_id +", house_floor=" + house_floor +", house_num=" + house_num + ", house_area=" + house_area + ", house_price_single=" + house_price_single + ", house_price_total=" + house_price_total + ", house_status=" + house_status + ", ]";
+		return "House [house_id=" + house_id +", house_floor=" + house_floor +", house_num=" + house_num + ",house_lounum=" + house_lounum + " house_area=" + house_area + ", house_price_single=" + house_price_single + ", house_price_total=" + house_price_total + ", house_status=" + house_status + ", ]";
 	}
 	
 	

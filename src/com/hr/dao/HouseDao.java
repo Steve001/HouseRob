@@ -91,26 +91,28 @@ public class HouseDao {
 	
 	//购买后修改房源信息字段
 	public static int houseUpdate(Connection con, House house, Customer customer) throws SQLException {		//函数类型为int
-		String sql="update house set house_status=1,cus_id=?,cus_order=?,cus_order_date=?,cus_name=?,cus_phone=?,cus_idnum=?,cus_password=?,cus_guwen=?,cus_area1=?,cus_area2=?,cus_area3=?,cus_final_area=?,cus_status=1,cus_date_dingcun=? where house_id = ?";				//根据house_id改变house_status
-		PreparedStatement pstm=con.prepareStatement(sql);
-		pstm.setString(1, house.gethouse_status());
-		pstm.setInt(2, customer.getcus_Id());
-		pstm.setInt(3, customer.getcus_order());
-		pstm.setString(4, customer.getcus_order_date());
-		pstm.setString(5, customer.getcus_name());
-		pstm.setString(6, customer.getcus_phone());
-		pstm.setString(7, customer.getcus_idnum());
-		pstm.setString(8, customer.getcus_password());
-		pstm.setString(9, customer.getcus_guwen());
-		pstm.setString(10, customer.getcus_area1());
-		pstm.setString(11, customer.getcus_area2());
-		pstm.setString(12, customer.getcus_area3());
-		pstm.setString(13, customer.getcus_final_area());
-		pstm.setString(14, customer.getcus_date_dingcun());
+//		String sql="update house set house_status='1',cus_id=?,cus_order=?,cus_order_date=?,cus_name=?,cus_phone=?,cus_idnum=?,cus_password=?,cus_guwen=?,cus_area1=?,cus_area2=?,cus_area3=?,cus_final_area=?,cus_status=1,cus_date_dingcun=? where house_id = ?";				//根据house_id改变house_status
+		String sql="update house set house_status=1,cus_id=?,cus_order=?,cus_order_date=?,cus_name=?,cus_phone=?,cus_idnum=?,cus_password=?,cus_guwen=?,cus_final_area=?,cus_status=1,cus_date_dingcun=? where house_id = ?";				//根据house_id改变house_status
+		PreparedStatement pstmt=con.prepareStatement(sql);
+
 		
-		pstm.setInt(15, house.gethouse_id());
+		//pstmt.setString(1, house.gethouse_status());
+		pstmt.setInt(1, customer.getcus_id());
+		pstmt.setInt(2, customer.getcus_order());
+		pstmt.setString(3, customer.getcus_order_date());
+		pstmt.setString(4, customer.getcus_name());
+		pstmt.setString(5, customer.getcus_phone());
+		pstmt.setString(6, customer.getcus_idnum());
+		pstmt.setString(7, customer.getcus_password());
+		pstmt.setString(8, customer.getcus_guwen());
+		pstmt.setString(9, customer.getcus_final_area());
+	//	pstmt.setString(11, customer.getcus_status());
+		pstmt.setString(10, customer.getcus_date_dingcun());
+		pstmt.setInt(11, house.gethouse_id());
 		
-		int a =pstm.executeUpdate();
+		
+		
+		int a =pstmt.executeUpdate();
 		System.out.println(a);
 		return a;
 	}
@@ -139,17 +141,27 @@ public class HouseDao {
 			}
 	}
 	
-	
-	/* 展示1号楼指定楼层房源信息 */
-	public static List<House> houseFloorShow1(Connection con, String house_floor) throws SQLException {
+	/* 展示指定楼层房源信息 */
+	public static List<House> houseFloorShow(Connection con, String house_floor, String house_lounum) throws SQLException {
 		//String sql = "select * from house where house_floor =3F";						//预设的数据库查询语句
-		String sql = "select * from house1 where house_floor =? and house_status = '0' ";		//预设的数据库查询语句，展示可抢房源
+		String sql = "select * from house where house_floor =? and house_status = '0' and house_lounum=? ";		//预设的数据库查询语句，展示可抢房源
+		System.out.println(sql);
 		PreparedStatement pstmt = con.prepareStatement(sql);
 		String floor=house_floor.replace("'", "");
 		pstmt.setString(1, floor);
 		System.out.println(sql+floor);
+		
+//		String lounum=house_floor.house_lounum.replace("'", "");
+//		House house1 = new House();
+		
+		String lounum=house_lounum.replace("'", "");
+		System.out.println(sql+lounum);
+		pstmt.setString(2, lounum);
+		
 		List<House> houses=new ArrayList<House>();
 		ResultSet rs = pstmt.executeQuery();
+		System.out.println(rs);
+		
 		while (rs.next()) {
 			House house1= new House();
 			house1.sethouse_id(rs.getInt("house_id"));					//设定获取到的字段信息
@@ -159,34 +171,60 @@ public class HouseDao {
 			house1.sethouse_price_single(rs.getString("house_price_single"));
 			house1.sethouse_price_total(rs.getString("house_price_total"));
 			house1.sethouse_status(rs.getString("house_status"));
+			house1.sethouse_lounum(rs.getString("house_lounum"));
 			houses.add(house1);
 		} 
 		return houses;
 	}
 	
-	/* 展示2号楼指定楼层房源信息 */
-	public static List<House> houseFloorShow2(Connection con, String house_floor) throws SQLException {
-		//String sql = "select * from house where house_floor =3F";						//预设的数据库查询语句
-		String sql = "select * from house2 where house_floor =? and house_status = '0' ";						//预设的数据库查询语句
-		PreparedStatement pstmt = con.prepareStatement(sql);
-		String floor=house_floor.replace("'", "");
-		pstmt.setString(1, floor);
-		System.out.println(sql+floor);
-		List<House> houses=new ArrayList<House>();
-		ResultSet rs = pstmt.executeQuery();
-		while (rs.next()) {
-			House house1= new House();
-			house1.sethouse_id(rs.getInt("house_id"));					//设定获取到的字段信息
-			house1.sethouse_floor(rs.getString("house_floor"));	
-			house1.sethouse_num(rs.getInt("house_num"));
-			house1.sethouse_area(rs.getString("house_area"));
-			house1.sethouse_price_single(rs.getString("house_price_single"));
-			house1.sethouse_price_total(rs.getString("house_price_total"));
-			house1.sethouse_status(rs.getString("house_status"));
-			houses.add(house1);
-		} 
-		return houses;
-	}
+	
+//	/* 展示1号楼指定楼层房源信息 */
+//	public static List<House> houseFloorShow1(Connection con, String house_floor) throws SQLException {
+//		//String sql = "select * from house where house_floor =3F";						//预设的数据库查询语句
+//		String sql = "select * from house1 where house_floor =? and house_status = '0' ";		//预设的数据库查询语句，展示可抢房源
+//		PreparedStatement pstmt = con.prepareStatement(sql);
+//		String floor=house_floor.replace("'", "");
+//		pstmt.setString(1, floor);
+//		System.out.println(sql+floor);
+//		List<House> houses=new ArrayList<House>();
+//		ResultSet rs = pstmt.executeQuery();
+//		while (rs.next()) {
+//			House house1= new House();
+//			house1.sethouse_id(rs.getInt("house_id"));					//设定获取到的字段信息
+//			house1.sethouse_floor(rs.getString("house_floor"));	
+//			house1.sethouse_num(rs.getInt("house_num"));
+//			house1.sethouse_area(rs.getString("house_area"));
+//			house1.sethouse_price_single(rs.getString("house_price_single"));
+//			house1.sethouse_price_total(rs.getString("house_price_total"));
+//			house1.sethouse_status(rs.getString("house_status"));
+//			houses.add(house1);
+//		} 
+//		return houses;
+//	}
+//	
+//	/* 展示2号楼指定楼层房源信息 */
+//	public static List<House> houseFloorShow2(Connection con, String house_floor) throws SQLException {
+//		//String sql = "select * from house where house_floor =3F";						//预设的数据库查询语句
+//		String sql = "select * from house2 where house_floor =? and house_status = '0' ";						//预设的数据库查询语句
+//		PreparedStatement pstmt = con.prepareStatement(sql);
+//		String floor=house_floor.replace("'", "");
+//		pstmt.setString(1, floor);
+//		System.out.println(sql+floor);
+//		List<House> houses=new ArrayList<House>();
+//		ResultSet rs = pstmt.executeQuery();
+//		while (rs.next()) {
+//			House house1= new House();
+//			house1.sethouse_id(rs.getInt("house_id"));					//设定获取到的字段信息
+//			house1.sethouse_floor(rs.getString("house_floor"));	
+//			house1.sethouse_num(rs.getInt("house_num"));
+//			house1.sethouse_area(rs.getString("house_area"));
+//			house1.sethouse_price_single(rs.getString("house_price_single"));
+//			house1.sethouse_price_total(rs.getString("house_price_total"));
+//			house1.sethouse_status(rs.getString("house_status"));
+//			houses.add(house1);
+//		} 
+//		return houses;
+//	}
 	
 	
 	//判断该房源是否已被购买,悲观锁。。。

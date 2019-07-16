@@ -49,7 +49,7 @@
 
 <div class="data_list">
 		<div class="data_list_title">
-			选房成功！
+			选房成功！您所选的房源信息为：
 		</div>
 		<%-- <form action="houseSelect?action=Save&house_id=${house.house_id }" method="post">		<!-- 将数据传给houseSelectServlet里面的preSave方法，并提交cus_id过去 --> --%>
 			<div class="data_form" >
@@ -91,7 +91,8 @@
 					
 					<div align="center">
 						<!-- <input type="submit" class="btn btn-primary" value="抢房！！！"/> -->
-						<button class="btn btn-mini btn-info" type="button" onclick="javascript:window.location='houseSelect?action=Save&house_id=${house.house_id }&house_floor=${house.house_floor}&house_num=${house.house_num}&house_area=${house.house_area }&house_price_single=${house.house_price_single }&house_price_total=${house.house_price_total }&house_status=${house.house_status }'">抢房</button>
+						<button class="btn btn-mini btn-info" type="button" onclick="javascript:window.location='houseSelect?action=Save&house_id=${house.house_id }&house_floor=${house.house_floor}&house_num=${house.house_num}&house_area=${house.house_area }&house_price_single=${house.house_price_single }&house_price_total=${house.house_price_total }&house_status=${house.house_status }&cus_id=${sessionScope.currentLogin.cus_id}'">抢房</button>
+						
 						<!-- &nbsp;<button class="btn btn-primary" type="button" onclick="javascript:history.back()">返回</button> -->	<!-- 返回按钮 -->
 					</div>
 					

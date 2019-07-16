@@ -124,6 +124,7 @@
 }
 </style>
 
+
 </head>
 <body>
 <div class="container-fluid" style="padding-right: 0px;padding-left: 0px;">
@@ -139,22 +140,22 @@
 					<!-- <li><a href="blank"><i class="icon-chevron-right"></i>首页</a></li> -->
 					<!-- <li><a href="userList?action=list"><i class="icon-chevron-right"></i>1楼</a></li>	 -->			<!-- 左侧列表显示 -->
 					<!-- <button class="btn btn-mini btn-info" type="button" onclick="houseFloorList&house_floor='17F'">修改</button> -->
-					<li><a href="houseSelect?action=floorList1&house_floor='17F'"><i class="icon-chevron-right"></i>17楼</a></li>
-					<li><a href="houseSelect?action=floorList1&house_floor='16F'"><i class="icon-chevron-right"></i>16楼</a></li>
-					<li><a href="houseSelect?action=floorList1&house_floor='15F'"><i class="icon-chevron-right"></i>15楼</a></li>
-					<li><a href="houseSelect?action=floorList1&house_floor='14F'"><i class="icon-chevron-right"></i>14楼</a></li>
-					<li><a href="houseSelect?action=floorList1&house_floor='13F'"><i class="icon-chevron-right"></i>13楼</a></li>
-					<li><a href="houseSelect?action=floorList1&house_floor='12F'"><i class="icon-chevron-right"></i>12楼</a></li>
-					<li><a href="houseSelect?action=floorList1&house_floor='11F'"><i class="icon-chevron-right"></i>11楼</a></li>
-					<li><a href="houseSelect?action=floorList1&house_floor='10F'"><i class="icon-chevron-right"></i>10楼</a></li>
-					<li><a href="houseSelect?action=floorList1&house_floor='9F'"><i class="icon-chevron-right"></i>9楼</a></li>
-					<li><a href="houseSelect?action=floorList1&house_floor='8F'"><i class="icon-chevron-right"></i>8楼</a></li>
-					<li><a href="houseSelect?action=floorList1&house_floor='7F'"><i class="icon-chevron-right"></i>7楼</a></li>
-					<li><a href="houseSelect?action=floorList1&house_floor='6F'"><i class="icon-chevron-right"></i>6楼</a></li>
-					<li><a href="houseSelect?action=floorList1&house_floor='5F'"><i class="icon-chevron-right"></i>5楼</a></li>
-					<li><a href="houseSelect?action=floorList1&house_floor='4F'"><i class="icon-chevron-right"></i>4楼</a></li>
-					<li><a href="houseSelect?action=floorList1&house_floor='3F'"><i class="icon-chevron-right"></i>3楼</a></li>
-					<li><a href="houseSelect?action=floorList1&house_floor='2F'"><i class="icon-chevron-right"></i>2楼</a></li>
+					<li><a href="houseSelect?action=floorList&house_floor='17F'&house_lounum='1'"><i class="icon-chevron-right"></i>17楼</a></li> 
+					<li><a href="houseSelect?action=floorList&house_floor='16F'&house_lounum='1'"><i class="icon-chevron-right"></i>16楼</a></li>
+					<li><a href="houseSelect?action=floorList&house_floor='15F'&house_lounum='1'"><i class="icon-chevron-right"></i>15楼</a></li>
+					<li><a href="houseSelect?action=floorList&house_floor='14F'&house_lounum='1'"><i class="icon-chevron-right"></i>14楼</a></li>
+					<li><a href="houseSelect?action=floorList&house_floor='13F'&house_lounum='1'"><i class="icon-chevron-right"></i>13楼</a></li>
+					<li><a href="houseSelect?action=floorList&house_floor='12F'&house_lounum='1'"><i class="icon-chevron-right"></i>12楼</a></li>
+					<li><a href="houseSelect?action=floorList&house_floor='11F'&house_lounum='1'"><i class="icon-chevron-right"></i>11楼</a></li>
+					<li><a href="houseSelect?action=floorList&house_floor='10F'&house_lounum='1'"><i class="icon-chevron-right"></i>10楼</a></li>
+					<li><a href="houseSelect?action=floorList&house_floor='9F'&house_lounum='1'"><i class="icon-chevron-right"></i>9楼</a></li>
+					<li><a href="houseSelect?action=floorList&house_floor='8F'&house_lounum='1'"><i class="icon-chevron-right"></i>8楼</a></li>
+					<li><a href="houseSelect?action=floorList&house_floor='7F'&house_lounum='1'"><i class="icon-chevron-right"></i>7楼</a></li>
+					<li><a href="houseSelect?action=floorList&house_floor='6F'&house_lounum='1'"><i class="icon-chevron-right"></i>6楼</a></li>
+					<li><a href="houseSelect?action=floorList&house_floor='5F'&house_lounum='1'"><i class="icon-chevron-right"></i>5楼</a></li>
+					<li><a href="houseSelect?action=floorList&house_floor='4F'&house_lounum='1'"><i class="icon-chevron-right"></i>4楼</a></li>
+					<li><a href="houseSelect?action=floorList&house_floor='3F'&house_lounum='1'"><i class="icon-chevron-right"></i>3楼</a></li>
+					<li><a href="houseSelect?action=floorList&house_floor='2F'&house_lounum='1'"><i class="icon-chevron-right"></i>2楼</a></li>
 					<li><a href="homeSelectButton.jsp"><i class="icon-chevron-right"></i>重新选择楼号</a></li>
 					<!-- <li><a href="login.jsp"><i class="icon-chevron-right"></i>退出系统</a></li> -->
 				</ul>

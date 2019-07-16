@@ -18,7 +18,7 @@ public class Customer {
 	private String cus_date_dingcun;
 	
 	
-	public int getcus_Id() {
+	public int getcus_id() {
 		return cus_id;
 	}
 	

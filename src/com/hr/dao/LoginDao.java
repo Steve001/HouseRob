@@ -10,7 +10,7 @@ import com.hr.model.Login;
 
 public class LoginDao {
 
-	public Login Login(Connection connection,Login login) throws SQLException {
+	public static Login Login(Connection connection,Login login) throws SQLException {
 		Login reslogin=null;
 		String sqlString="select * from customer where cus_idnum=? and cus_password=?";
 		PreparedStatement pstmt = connection.prepareStatement(sqlString);
