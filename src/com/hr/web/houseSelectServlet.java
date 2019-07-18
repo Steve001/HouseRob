@@ -372,37 +372,6 @@ public class houseSelectServlet extends HttpServlet {
 			}
 		}
 	 
-	 
-//	//获取2号楼指定楼层房源信息
-//		 private void houseFloorList2(HttpServletRequest request,
-//					HttpServletResponse response,String house_floor) throws ServletException, IOException {
-//				Connection con = null;
-//				List<House> houseList=new ArrayList<House>();
-//				System.out.println(house_floor+"----");
-//				
-//				try {
-//					con = dbUtil.getCon();
-//					houseList=HouseDao.houseFloorShow(con, house_floor);
-////					request.getRequestDispatcher("houseSelect?action=floorList").forward(request, response);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				} finally {
-//					try {
-//						dbUtil.closeCon(con);
-//					} catch (Exception e) {
-//						e.printStackTrace();
-//					}
-//				}
-//				
-//				request.setAttribute("houseList", houseList);
-//				request.setAttribute("mainPage", "houseManager.jsp");
-//				request.getRequestDispatcher("houseSelect_home2.jsp").forward(request, response);
-//			}
-		 
-		 
-		 
-		 
-		 
 		 
 	
 }

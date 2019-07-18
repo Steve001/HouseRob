@@ -102,4 +102,9 @@
 					</div>
 			</div>
 		<!-- </form> -->
+		
 </div>
+
+<div class="span10">
+		<jsp:include page="${mainPage==null?'time_countdown.jsp':mainPage}"></jsp:include>
+	</div>
